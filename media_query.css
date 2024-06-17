@@ -1,0 +1,353 @@
+Only specific to media query
+.heading {
+    margin: 5rem;
+}
+
+@media screen and (900px < width <=1320px) {
+    @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&family=Lato:ital,wght@0,400;1,700&family=Roboto:wght@500&family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
+
+    .container {
+        padding-inline: 30px;
+        /* background-color: red; */
+
+        padding-bottom: 5rem;
+
+    }
+
+    .btn-cls {
+        word-spacing: 0.2rem;
+        z-index: 2;
+    }
+
+    .resume-links a {
+        font-size: 1.6rem;
+    }
+
+    div.info-layer p {
+        font-size: 10px !important;
+    }
+
+    div.info-layer h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (width <900px) {
+
+    .btn-cls {
+        z-index: 2;
+    }
+
+    .resume-links a {
+        font-size: 1.3rem;
+    }
+
+    .about-read-more {
+        width: 50%;
+    }
+
+    /* Service section */
+    .container {
+        padding-bottom: 5rem;
+    }
+
+    .service {
+        height: auto !important;
+    }
+
+    .service-offfer {
+
+        flex-wrap: wrap;
+        padding-bottom: 50px;
+    }
+
+    .boxes-service {
+        width: 290px;
+    }
+
+    .service-btn {
+        width: 90%;
+    }
+
+    .about-section {
+        padding-top: min(25px, 5%);
+        height: auto;
+    }
+
+    h2 {
+        font-size: 100%;
+    }
+
+    div.info-layer p {
+        font-size: 20%;
+    }
+
+    div.info-layer h3 {
+        font-size: 1.5rem;
+    }
+
+    .contact-us-heading {
+        font-size: 2rem;
+    }
+
+    li,
+    .intro-contact {
+        text-decoration: none;
+        list-style: none;
+        font-size: 1.1rem;
+        margin: 5px 0;
+    }
+}
+
+@media screen and (700px < width <=900px) {
+    .service {
+
+        padding: max(50px, 5%) 0px;
+        /* background-color: red; */
+
+    }
+
+    .container {
+        padding-inline: 20px;
+    }
+
+    .intro-content {
+        width: 44%;
+    }
+
+    .btn-cls {
+        word-spacing: 0.2rem;
+        z-index: 1;
+    }
+
+    .resume-links a {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+/* project container */
+
+
+.project-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    align-items: center;
+ /* Stack projects  */
+}
+
+div.info-layer {
+    transform: translateY(80%); /* Show more info layer by default */
+    padding: 1rem; /* Adjust padding */
+}
+
+div.info-layer h3 {
+    padding-top: 5px;
+    font-size: 1rem; /* Further reduce font size */
+}
+
+div.info-layer p.intro {
+    font-size: 0.5rem; /* Reduce font size */
+}
+
+.box-project {
+    margin: 10px 0; /* Reduce margin for better spacing */
+}
+
+.heading1 {
+   text-align: center;
+    font-size: 2.6rem; /* Reduce heading font size */
+}
+
+
+    
+    .head-img-intro {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 50px;
+        /* justify-content: center !important;
+        align-items: center !important; */
+    }
+
+    div.logo {
+        font-size: 2rem; /* Reduced font size for mobile */
+        width: 90%; /* Make it wider to take up more horizontal space */
+        padding: 10px; /* Adjust padding for better spacing */
+        word-spacing: normal; /* Remove extra word spacing */
+    }
+
+    .intro-content {
+        width: 85%;
+        display: block;
+        /* flex-direction: column; */
+        /* align-items: center; */
+    }
+
+    .social-media {
+        display: flex;
+        justify-content: center;
+    }
+
+    h3 {
+        font-size: 210%;
+    }
+
+    h2.intro-name {
+        font-size: 3rem;
+    }
+
+    .resume-links {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-cls {
+        /* transform: scaleX(0.8); */
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-bar-items {
+        display: none;
+    }
+
+    #Menu-card {
+        display: inline;
+        font-size: large;
+
+    }
+
+    .main-img {
+        width: 60%;
+    }
+
+    .header-nav-bar {
+        justify-content: center;
+    }
+
+    /* service section */
+    .boxes-service {
+        width: 280px;
+    }
+
+    /* About section */
+    .about-section {
+        flex-direction: column-reverse;
+    }
+
+    .about-content {
+        width: 87%;
+    }
+
+    .about-image {
+        width: 64%;
+    } 
+    .bc{
+        width: 56px;
+        height: 40px;
+        padding-top: 6px;
+        }
+
+        .contact-form {
+            padding: 15px;
+            border-width: 2px;
+        }
+    
+        .form-group {
+            flex-direction: column;
+            gap: 10px;
+        }
+    
+        .form-group input {
+            font-size: 16px;
+            padding: 8px;
+        }
+    
+        textarea {
+            font-size: 18px;
+            padding: 8px;
+        }
+    
+        .btn-submit {
+            padding: 12px;
+            font-size: 1.5em;
+        }
+
+}
+
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .heading1 {
+        font-size: 3rem;
+        padding-top: 500px; /* Adjust as needed */
+    }
+
+    .heading1 .Me {
+        font-size: 3rem;
+        color: rgb(255, 255, 0);
+    }
+
+    .project-container {
+        padding-top: 100px; /* Adjust as needed */
+        grid-template-columns: 1fr; /* Ensure single column layout */
+    }
+}
+
+/* Laptop/Tablet Landscape Styles */
+@media screen and (min-width: 769px) and (orientation: landscape) {
+    .heading1 {
+        font-size: 5rem;
+        padding-top: 20px; /* Adjust as needed */
+        color: cyan;
+    }
+
+    .heading1 .Me {
+        font-size: 5rem;
+        color: rgb(255, 255, 0); /* Adjust as needed */
+    }
+
+    .project-container {
+        padding-top: 20px; /* Adjust as needed */
+        grid-template-columns: repeat(3, 1fr); /* Ensure three-column layout */
+    }
+}
+
+/* Tablet Portrait and Larger Styles */
+@media screen and (640px < width <=1104px) {
+    .heading1 {
+        padding-top: 500px;
+        font-size: 3rem; /* Adjust as needed */
+    }
+
+    .heading1 .Me {
+        font-size: 3rem;
+        color: cyan;
+    }
+    
+
+    div.logo {
+        
+        color: rgb(255, 255, 255);
+        font-size: 7rex; /* Typo corrected to '7rem' */
+        font-family: 'Intro Rust Pro';
+        width: 90%;
+        padding-top: 5px;
+        text-align: center;
+        padding: max(6px, 1%);
+        border-radius: 20px;
+        word-spacing: 1.2rem;
+        box-shadow: 0 0 6rem rgb(255, 0, 204);
+        transition: 0.5s ease-in-out;
+        cursor: pointer;
+        z-index: -5;
+    }
+
+
+
+    .project-container {
+        padding-top: 20px; /* Adjust as needed */
+        grid-template-columns: repeat(3, 1fr); /* Ensure three-column layout */
+    }
+}
