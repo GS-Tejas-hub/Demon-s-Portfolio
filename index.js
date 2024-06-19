@@ -27,7 +27,7 @@ allAnchorTag.forEach((val) => {
 });
 
 var typed = new Typed(".profession",{
-    strings:["Full Stack Web Developer","UI/UX Designer", "Photographer","Full Stack Web Developer","UI/UX Designer", "Photographer","Full Stack Web Developer","UI/UX Designer", "Photographer"],
+    strings:["Full Stack Web Developer","UI/UX Designer", "Photographer","Prompt Engineer","Full Stack Web Developer","UI/UX Designer", "Photographer","Prompt Engineer","Full Stack Web Developer","UI/UX Designer", "Photographer","Prompt Engineer"],
     typeSpeed:80,
     backSpeed:10,
     loop:true,
