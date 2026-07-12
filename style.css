@@ -446,14 +446,14 @@ html.cursor-hidden, html.cursor-hidden * { cursor: none !important; }
 .hero-emblem {
     position: absolute; top: 50%; left: 50%;
     width: clamp(150px, 17vw, 230px); aspect-ratio: 1;
-    transform: translate(-50%, -46%) scale(0.5);
+    transform: translate(-50%, var(--emb-ty, -46%)) scale(0.5);
     z-index: 6; opacity: 0;
     filter: drop-shadow(0 0 40px rgba(255,59,59,0.25));
 }
 .hero.loaded .hero-emblem { animation: emblem-in 1s var(--ease) 1.15s forwards; }
 @keyframes emblem-in {
-    from { opacity: 0; transform: translate(-50%, -46%) scale(0.5) rotate(-40deg); }
-    to { opacity: 1; transform: translate(-50%, -46%) scale(1) rotate(0deg); }
+    from { opacity: 0; transform: translate(-50%, var(--emb-ty, -46%)) scale(0.5) rotate(-40deg); }
+    to { opacity: 1; transform: translate(-50%, var(--emb-ty, -46%)) scale(1) rotate(0deg); }
 }
 .hero-emblem svg { width: 100%; height: 100%; overflow: visible; }
 .em-ring-a { transform-origin: 110px 110px; animation: spin 26s linear infinite; }
@@ -1081,11 +1081,19 @@ img, svg, video, canvas { max-width: 100%; }
     .anime-head { margin-bottom: 2rem; }
 }
 
+/* Phones only: stack the hero name as G S / oni / TEJAS with the seal sitting
+   in the gap between the two lines. The rings may overlap the letters, but the
+   glyph itself does not. Emblem size and gap scale with the viewport, and the
+   seal is nudged down (--emb-ty) so it centres in the widened gap. */
+@media (max-width: 500px) {
+    .hero-name .hn-last { margin-top: 1.15em; }
+    .hero-emblem { width: 27vw; --emb-ty: -28%; }
+}
+
 @media (max-width: 480px) {
     .stat-box { padding: 1.3rem 1rem; }
     .contact-actions .btn { width: 100%; text-align: center; }
     .hn-last { -webkit-text-stroke: 1px var(--cream); }
-    .hero-emblem { width: 130px; }
     .brand-sub { display: none; }
     .hero-hud { padding: 0.6rem var(--pad); font-size: 0.5rem; letter-spacing: 0.1em; }
     .hud-left, .hud-right { gap: 0.5rem; }
