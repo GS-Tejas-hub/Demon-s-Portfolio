@@ -88,7 +88,7 @@
     if (finePointer && cursorDot && cursorRing && !reduce) {
         document.documentElement.classList.add('cursor-hidden');  // hide native cursor
         var cursorLens = document.getElementById('cursorLens');
-        var MAG_COPY = ['fontFamily','fontSize','fontWeight','fontStyle','letterSpacing','lineHeight','color','textTransform','textAlign','fontStretch'];
+        var MAG_COPY = ['fontFamily','fontSize','fontWeight','fontStyle','letterSpacing','wordSpacing','lineHeight','color','textTransform','textAlign','fontStretch','whiteSpace','webkitTextStrokeWidth','webkitTextStrokeColor','webkitTextFillColor'];
         var ZOOM = 1.55;
         var magTarget = null, magClone = null;
         var mx = -100, my = -100, rx = -100, ry = -100;
@@ -124,24 +124,30 @@
             return el;
         }
 
+        var magFrame = 0;
         (function ring() {
             rx += (mx - rx) * 0.28; ry += (my - ry) * 0.28;
             cursorRing.style.transform = 'translate(' + (rx - cursorRing.offsetWidth / 2) + 'px,' + (ry - cursorRing.offsetHeight / 2) + 'px)';
 
-            var el = cursorLens ? textElAt(rx, ry) : null;
-            if (el !== magTarget) {
-                magTarget = el;
-                cursorLens.innerHTML = '';
-                magClone = null;
-                if (el) {
-                    magClone = el.cloneNode(true);
-                    var cs = getComputedStyle(el);
-                    MAG_COPY.forEach(function (p) { magClone.style[p] = cs[p]; });
-                    magClone.style.width = el.offsetWidth + 'px';
-                    cursorLens.appendChild(magClone);
-                    cursorRing.classList.add('mag');
-                } else {
-                    cursorRing.classList.remove('mag');
+            // caretRangeFromPoint forces a synchronous layout, so only hit-test
+            // on every other frame (~30fps). The lens still tracks at 60fps.
+            if (cursorLens && (++magFrame & 1) === 0) {
+                var el = textElAt(rx, ry);
+                if (el !== magTarget) {
+                    magTarget = el;
+                    cursorLens.innerHTML = '';
+                    magClone = null;
+                    if (el) {
+                        magClone = el.cloneNode(true);
+                        magClone.removeAttribute('id');   // avoid duplicate ids in the DOM
+                        var cs = getComputedStyle(el);
+                        MAG_COPY.forEach(function (p) { try { magClone.style[p] = cs[p]; } catch (e) {} });
+                        magClone.style.width = el.offsetWidth + 'px';
+                        cursorLens.appendChild(magClone);
+                        cursorRing.classList.add('mag');
+                    } else {
+                        cursorRing.classList.remove('mag');
+                    }
                 }
             }
             if (magTarget && magClone) {

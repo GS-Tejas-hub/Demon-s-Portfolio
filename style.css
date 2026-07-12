@@ -188,6 +188,18 @@ img { max-width: 100%; display: block; }
     position: absolute; top: 0; left: 0; transform-origin: 0 0;
     margin: 0 !important; will-change: transform; pointer-events: none;
 }
+/* A clone is lifted out of its original context (hero.loaded reveals, .reveal
+   fades, clip-path intros). Force every clone and its children to their final,
+   visible state so the lens never renders an empty black disc over text that
+   is animated in, faded in, or drawn as a transparent outline. */
+.cursor-lens *, .cursor-lens *::before, .cursor-lens *::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+}
 .cursor-ring.mag {
     width: 78px; height: 78px;
     border-color: rgba(255,255,255,0.6);
@@ -1057,6 +1069,8 @@ img, svg, video, canvas { max-width: 100%; }
     .hud-show-sm { display: inline; }
     .corner-tl, .corner-tr { top: 66px; }
     .corner { width: 26px; height: 26px; }
+    /* Mobile only: open up the line spacing between "G S" and "TEJAS". */
+    .hero-name .hn-last { margin-top: 0.16em; }
 }
 
 /* Phones: single column tools, stacked CTAs, centered footer */
