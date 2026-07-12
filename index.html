@@ -3,201 +3,680 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="G S Tejas. Full Stack Developer, AI/ML Engineer and Founder of Five AM Labs. I build startups, engineer intelligence and ship before sunrise.">
+    <meta name="theme-color" content="#070707">
+    <meta property="og:title" content="G S Tejas | Full Stack × AI/ML × Founder">
+    <meta property="og:description" content="Founder of Five AM Labs. Building AI products before the rest of the city wakes up.">
+    <meta property="og:type" content="website">
+    <title>G S Tejas | Full Stack × AI/ML × Founder</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Sans+JP:wght@700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="media_query.css">
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Demon King</title>
 </head>
 
 <body>
-    <!-- Header design section -->
-    <header>
-        <div class="header-nav-bar container flex">
-            <div class="logo">
-                Welcome to my world of<br>code, creativity and innovation!
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <p class="pre-line">
+            <span class="pre-word">Building,</span>
+            <span class="pre-word">Shipping,</span>
+            <span class="pre-word">Innovating.</span>
+        </p>
+    </div>
+
+    <!-- Custom cursor: liquid glass lens that magnifies text underneath -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"><div class="cursor-lens" id="cursorLens"></div></div>
+
+    <!-- Grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Floating anime quotes (lightning flash, drift, fade) -->
+    <div class="quote-field" id="quoteField" aria-hidden="true"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <a href="#home" class="brand">
+                <span class="brand-mark">GS.TEJAS</span>
+                <span class="brand-divider"></span>
+                <span class="brand-sub">EST. 2022</span>
+            </a>
+
+            <div class="header-coords mono-dim">
+                <span>LAT: 12.9716° N</span>
+                <span class="dot-sep"></span>
+                <span>LONG: 77.5946° E</span>
             </div>
-            <i class='bx bx-menu' id="Menu-card"></i>
-            <nav class="nav-bar-items">
-                <a href="#home-container" id="home" class="active">Home</a>
-                <a href="https://students-store01.myshopify.com/password?customer_posted=true#contact_form" id="visitMyStore" class="active">MyStore</a>
-                <a href="#about-section" id="about">About</a>
-                <a href="#service-section" id=" services ">Skills</a>
-                <a href="#portfolio-div" id="portfolio">Portfolio</a>
-                <a href="#contact-section" id="contact">Contact</a> <!-- Updated -->
+
+            <nav class="nav-desktop" aria-label="Primary">
+                <a href="#about" class="nav-link" data-section="about"><span class="nav-no">01</span>ABOUT</a>
+                <a href="#experience" class="nav-link" data-section="experience"><span class="nav-no">02</span>WORK</a>
+                <a href="#projects" class="nav-link" data-section="projects"><span class="nav-no">03</span>PROJECTS</a>
+                <a href="#contact" class="nav-link" data-section="contact"><span class="nav-no">04</span>CONTACT</a>
             </nav>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span>
+            </button>
         </div>
     </header>
-    <!-- Home design section -->
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav aria-label="Mobile">
+            <a href="#about" class="mobile-link"><span>01</span>ABOUT</a>
+            <a href="#experience" class="mobile-link"><span>02</span>WORK</a>
+            <a href="#projects" class="mobile-link"><span>03</span>PROJECTS</a>
+            <a href="#contact" class="mobile-link"><span>04</span>CONTACT</a>
+        </nav>
+        <div class="mobile-menu-foot mono-dim">
+            <span>BENGALURU, INDIA</span>
+            <span>ALIAS: DEMON_KING_001</span>
+        </div>
+    </div>
+
     <main>
-        <section class=" head-img-intro flex container " id=" home-container ">
-            <div class="intro-content">
-                <h3 class=" intro-start ">Hello, It's Me</h3>
-                <h2 class=" intro-name ">G S Tejas</h2>
-                <h3 class=" intro-last ">And I'm a
-                    <span class=" profession ">
-                    
-                    </span>
-                </h3>
-                <p class="intro-main">
-                    I'm Tejas, a motivated and proficient full-stack web developer with a passion for building dynamic and user-friendly experiences. Currently pursuing my B.Tech at Dayananda Sagar Institutions, I'm equipped with a solid foundation in programming and a drive to stay ahead of the curve.
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="home">
+            <div class="hero-tint" aria-hidden="true"></div>
+
+            <div class="corner corner-tl" aria-hidden="true"></div>
+            <div class="corner corner-tr" aria-hidden="true"></div>
+            <div class="corner corner-bl" aria-hidden="true"></div>
+            <div class="corner corner-br" aria-hidden="true"></div>
+
+            <div class="hero-center">
+                <div class="hero-kicker mono-dim">
+                    <span class="kicker-line"></span>
+                    <span>001 · FULL STACK × AI/ML × FOUNDER</span>
+                    <span class="kicker-line"></span>
+                </div>
+
+                <h1 class="hero-name" aria-label="G S Tejas">
+                    <span class="hn-line hn-first" id="hnFirst">G S</span>
+                    <span class="hn-line hn-last" id="hnLast">TEJAS</span>
+                </h1>
+
+                <!-- Animated oni seal emblem (nested over the name) -->
+                <div class="hero-emblem" aria-hidden="true">
+                    <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+                        <g class="em-ring-a">
+                            <circle cx="110" cy="110" r="104" fill="none" stroke="rgba(236,231,222,0.28)" stroke-width="1" stroke-dasharray="3 9"/>
+                        </g>
+                        <g class="em-ring-b">
+                            <circle cx="110" cy="110" r="88" fill="none" stroke="rgba(255,59,59,0.55)" stroke-width="1" stroke-dasharray="1 15"/>
+                            <path d="M110 22 v14 M110 184 v14 M22 110 h14 M184 110 h14" stroke="rgba(255,59,59,0.7)" stroke-width="1.4"/>
+                        </g>
+                        <circle cx="110" cy="110" r="70" fill="rgba(7,7,7,0.55)" stroke="rgba(236,231,222,0.16)" stroke-width="1"/>
+                        <text x="110" y="110" class="em-glyph" text-anchor="middle" dominant-baseline="central">鬼</text>
+                        <g class="em-ring-a">
+                            <circle cx="110" cy="16" r="3" fill="var(--accent, #ff3b3b)"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <p class="hero-tag mono-dim">FIVE AM LABS · DEMON_KING_001</p>
+            </div>
+
+            <div class="hero-cols">
+                <p class="hero-col hero-col-left">
+                    I currently engineer AI systems at
+                    <a href="https://scopeout.co" target="_blank" rel="noopener" class="inline-link">Scopeout</a>
+                    and run <a href="https://5am-labs.vercel.app" target="_blank" rel="noopener" class="inline-link">Five AM Labs</a>,
+                    currently open to meaningful work.
                 </p>
-                <div class=" social-media ">
-                    <a href="https://github.com/GS-Tejas-hub" class="icons">
-                        <i class=" fa-brands fa-github-alt "></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/g-s-tejas-10580929a/" class=" icons ">
-                        <i class=" fa-brands fa-linkedin-in "></i>
-                    </a>
-                    <a href=" # " class=" icons ">
-                        <i class=" fa-brands fa-facebook-f "></i>
-                    </a>
-                    <a href="https://www.instagram.com/the_demon_king_001_/" class=" icons ">
-                        <i class=" fa-brands fa-instagram "></i>
-                    </a>
-                </div>
-                <div class="resume-links">
-                    <a href="https://drive.google.com/file/d/1Q1QQlwmlwPLE0Y6S-6nAB_6FPWgv2GjD/view?usp=drivesdk"
-                        class="cv-resume btn-cls" target="new">DownloadCV</a>
-                        <a href="#contact-section" class="cv-resume btn-cls">HireMe!</a>
-                    <a href="https://students-store01.myshopify.com/password?customer_posted=true#contact_form" class="cv-resume btn-cls">MyStore!</a><!-- Updated -->
-                </div>
+                <p class="hero-col hero-col-right">
+                    Focused on AI products and full stack builds,
+                    working from Bengaluru, India.
+                </p>
             </div>
-            <div class=" main-img ">
-                <img src="Untitled design (2).png" alt=" ">
-            </div>
-        </section>
-        <!-- About section -->
-        <section class="section-about" id="">
-            <div class="container flex about-section" id="about-section">
-                <div class=" about-image ">
-                    <img src="Untitled design (3).png" alt=" ">
-                </div>
-                <div class=" about-content ">
-                    <h3 class=" heading ">
-                        About <span class=" Me ">Me</span>
 
-                    </h3>
-                    <h2 class=" profession ">𝙎𝙤𝙡𝙪𝙩𝙞𝙤𝙣 𝙎𝙩𝙧𝙖𝙩𝙚𝙜𝙞𝙨𝙩⚡</h2>
-                    <p class=" intro-about-me ">
-                        I am G S Tejas, a B.Tech student at Dayananda Sagar University with a passion for web development. I have 2+ years of experience in JavaScript, React JS, Node JS, and MongoDB. I am a dedicated and driven individual with a strong work ethic.
-
-I am always eager to learn new technologies and improve my skills. I am also a Co-ordinator of the Entrepreneurship-Cell at my university. My goal is to build a successful career as a web developer and use my skills to make a positive impact on the world.
-                    </p>
-                    <div class="making-center flex-column" style="align-items: center;">
-
-                        <button class=" btn-cls about-read-more ">
-                            <a href="https://en.wikipedia.org/wiki/Full_stack_webdeveloper" class=" read-more ">Read More</a>
-                        </button>
+            <!-- Hero HUD footer -->
+            <div class="hero-hud mono-dim">
+                <div class="hud-left">
+                    <span class="hud-hide-sm">SYSTEM.ACTIVE</span>
+                    <span class="hud-show-sm">SYS.ACT</span>
+                    <div class="hud-bars" aria-hidden="true">
+                        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
                     </div>
+                    <span>V3.0.0</span>
+                </div>
+                <div class="hud-mid hud-hide-sm">
+                    <span id="hudClock">IST 00:00:00</span>
+                </div>
+                <div class="hud-right">
+                    <span class="hud-hide-sm">◐ RENDERING</span>
+                    <div class="hud-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                    <span>ALIAS: DEMON_KING_001</span>
                 </div>
             </div>
         </section>
 
-        <!-- Service section -->
-
-        <section class="service" id="service-section">
+        <!-- ============ ABOUT / INTRODUCING ME ============ -->
+        <section class="section" id="about">
             <div class="container">
-                <div class="heading">
-                    <h2>My <span class="Me">Skills</span></h2>
+                <div class="sec-head reveal">
+                    <span class="sec-no">002</span>
+                    <span class="sec-line"></span>
+                    <span class="sec-label">ABOUT</span>
                 </div>
-                <div class="service-offfer flex">
-                    <div class="Web-development boxes-service">
-                        <div class="logo"><i class="fa-solid fa-code"></i>
-                            </i>
+
+                <h2 class="statement reveal">
+                    I build startups,<br>
+                    engineer intelligence,<br>
+                    ship before sunrise.
+                </h2>
+
+                <div class="about-grid">
+                    <div class="about-visual reveal">
+                        <div class="intro-frame">
+                            <span class="if-corner if-tl"></span>
+                            <span class="if-corner if-tr"></span>
+                            <span class="if-corner if-bl"></span>
+                            <span class="if-corner if-br"></span>
+                            <img src="assets/intro.jpg" alt="Illustrated portrait of G S Tejas with a code snippet" width="1200" height="1200">
+                            <span class="intro-cap mono">// const tejas = &#123; passion: "code", goal: "impact" &#125;</span>
                         </div>
-
-                        <div class="service-heading">
-                            <h3>Web Development</h3>
-                        </div>
-
-                        <p class="intro">As a seasoned web developer and tech enthusiast, I bring 2+ years of expertise in JavaScript, React JS, Node JS, and MongoDB, with a proven track record of building scalable, efficient, and visually stunning applications. With a strong grasp of SQL databases</p>
-
-                        <button class="btn-cls service-btn">Read More</button>
+                        <blockquote class="img-quote reveal">
+                            <span class="iq-bar" aria-hidden="true"></span>
+                            If you can't find a reason to code, then you shouldn't be coding.
+                        </blockquote>
                     </div>
-                    <div class="Python-development boxes-service">
-                        <div class="logo"> <i class="fa-brands fa-python"></i></div>
 
-                        <div class="service-heading">
-                            <h3>Python Mastery</h3>
-                        </div>
-
-                        <p class="intro">Proficient in Python, with experience in scripting, data analysis, and machine learning. Familiarity with libraries like NumPy, pandas, and scikit-learn. Ability to apply Python skills to automate tasks, analyze data, and build predictive models.</p>
-                        <button class="btn-cls service-btn">Read More</button>
-
-                    </div>
-                    <div class="MachineLearning boxes-service ">
-                        <div class="logo">
-                           <img class="bc" src="Untitled design.png"></img>
-                        </div>
-
-                        <div class="service-heading">
-                            <h3>Machine Learning Expertise</h3>
-                        </div>
-
-                        <p class="intro">Skilled in machine learning, with expertise in building predictive models, natural language processing, and computer vision. Proficient in popular machine learning libraries and frameworks like TensorFlow, Keras, and scikit-learn, with a strong understanding of algorithms like supervised and unsupervised learning, neural networks, and deep learning.</p>
-                        <button class="btn-cls service-btn">Read More</button>
+                    <div class="about-left">
+                        <p class="body-text reveal">
+                            I am Tejas, an engineer and founder from Bengaluru. I run
+                            <span class="accent">Five AM Labs</span>, an AI product studio named
+                            after the hour I do my best work. I specialize in building
+                            intelligent products end to end: RAG pipelines, LLM integrations,
+                            fine tuned models, and the interfaces that make them feel like magic.
+                        </p>
+                        <p class="body-text reveal">
+                            By day I engineer AI systems at Scopeout and build platforms at
+                            MentorLink. By night I ship my own products. I studied Computer
+                            Science at Dayananda Sagar University, where I also set up the
+                            Entrepreneurship Cell as its Coordinator.
+                        </p>
+                        <p class="body-text reveal">
+                            When I am away from the keyboard I am usually deep in an anime
+                            marathon, gaming, or plotting the next build. Always open to
+                            meaningful collaborations.
+                        </p>
                     </div>
                 </div>
+
+                <div class="about-lower">
+                    <div class="stat-grid reveal">
+                        <div class="stat-box">
+                            <span class="stat-value" data-count="3">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label mono-dim">YEARS SHIPPING CODE</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" data-count="50" data-live="repos">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label mono-dim">REPOSITORIES BUILT</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" data-count="885" data-live="contributions">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label mono-dim">CONTRIBUTIONS</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" data-count="146" data-live="prs">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label mono-dim">PULL REQUESTS RAISED</span>
+                        </div>
+                    </div>
+
+                    <blockquote class="risk-quote reveal" aria-label="If you can't take risks, you can't create a future">
+                        <span>If you can't</span>
+                        <span>take risks.</span>
+                        <span>You can't create</span>
+                        <span>a future.</span>
+                    </blockquote>
+                </div>
+
+                <div class="tools-row">
+                    <div class="tool-group reveal">
+                        <h3 class="tool-title">Frontend</h3>
+                        <p class="tool-list">JavaScript (ES6+), TypeScript, React, React 19, React Native, Expo, Three.js, GSAP, HTML5, CSS.</p>
+                    </div>
+                    <div class="tool-group reveal">
+                        <h3 class="tool-title">Backend</h3>
+                        <p class="tool-list">Node.js, Express.js, Python, Django, MongoDB, SQL, REST APIs, AWS.</p>
+                    </div>
+                    <div class="tool-group reveal">
+                        <h3 class="tool-title">AI &amp; ML</h3>
+                        <p class="tool-list">LangChain, LlamaIndex, RAG Architectures, LoRA Fine Tuning, AWS Bedrock, TensorFlow, scikit learn.</p>
+                    </div>
+                    <div class="tool-group reveal">
+                        <h3 class="tool-title">Ops &amp; Automation</h3>
+                        <p class="tool-list">Git, GitHub, n8n, Zapier, Linux, Figma, Vercel, GitHub Pages.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ANIME LOOP ============ -->
+        <section class="anime" aria-label="Anime I watch and recommend">
+            <div class="anime-head reveal">
+                <span class="anime-kicker mono-dim">// OFF THE CLOCK</span>
+                <h2 class="anime-title">My Top Picks</h2>
+                <p class="anime-sub mono-dim">This is how I kill time when my Claude session runs out.</p>
+            </div>
+
+            <div class="anime-stage" id="animeStage">
+                <div class="anime-3d" id="anime3d">
+                    <article class="anime-card c-onepiece">
+                        <img class="ac-art" src="assets/anime/onepiece.jpg" alt="One Piece poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.8</span>
+                        <span class="ac-kanji" aria-hidden="true">海</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">One Piece</span>
+                            <span class="ac-genre mono">PIRATES · ADVENTURE</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-naruto">
+                        <img class="ac-art" src="assets/anime/naruto.jpg" alt="Naruto poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.4</span>
+                        <span class="ac-kanji" aria-hidden="true">忍</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Naruto</span>
+                            <span class="ac-genre mono">NINJA · SHONEN</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-demonslayer">
+                        <img class="ac-art" src="assets/anime/demonslayer.jpg" alt="Demon Slayer poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.6</span>
+                        <span class="ac-kanji" aria-hidden="true">刃</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Demon Slayer</span>
+                            <span class="ac-genre mono">SLAYERS · DARK FANTASY</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-jjk">
+                        <img class="ac-art" src="assets/anime/jjk.jpg" alt="Jujutsu Kaisen poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.7</span>
+                        <span class="ac-kanji" aria-hidden="true">呪</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Jujutsu Kaisen</span>
+                            <span class="ac-genre mono">CURSES · SUPERNATURAL</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-blackclover">
+                        <img class="ac-art" src="assets/anime/blackclover.jpg" alt="Black Clover poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 8.9</span>
+                        <span class="ac-kanji" aria-hidden="true">魔</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Black Clover</span>
+                            <span class="ac-genre mono">MAGIC · SHONEN</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-mha">
+                        <img class="ac-art" src="assets/anime/mha.jpg" alt="My Hero Academia poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.1</span>
+                        <span class="ac-kanji" aria-hidden="true">英</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">My Hero Academia</span>
+                            <span class="ac-genre mono">HEROES · SHONEN</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-aot">
+                        <img class="ac-art" src="assets/anime/aot.jpg" alt="Attack on Titan poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.9</span>
+                        <span class="ac-kanji" aria-hidden="true">巨</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Attack on Titan</span>
+                            <span class="ac-genre mono">TITANS · DARK</span>
+                        </div>
+                    </article>
+                    <article class="anime-card c-bleach">
+                        <img class="ac-art" src="assets/anime/bleach.jpg" alt="Bleach poster" loading="lazy" onerror="this.remove()">
+                        <span class="ac-rating mono">★ 9.3</span>
+                        <span class="ac-kanji" aria-hidden="true">魂</span>
+                        <div class="ac-meta">
+                            <span class="ac-title">Bleach</span>
+                            <span class="ac-genre mono">SOUL REAPERS · ACTION</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EXPERIENCE ============ -->
+        <section class="section section-alt" id="experience">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="sec-no">003</span>
+                    <span class="sec-line"></span>
+                    <span class="sec-label">WORK</span>
+                </div>
+                <h2 class="sec-title reveal">Where I have <em>been</em></h2>
+
+                <div class="xp-list">
+                    <article class="xp-row reveal">
+                        <div class="xp-period mono-dim">2025 · NOW</div>
+                        <div class="xp-main">
+                            <h3 class="xp-role">Founder &amp; CEO</h3>
+                            <span class="xp-org mono">FIVE AM LABS PVT LTD</span>
+                            <p class="xp-desc">Running an AI product studio out of Bengaluru. We design, build and ship intelligent products for ourselves and for clients, from concept to production.</p>
+                        </div>
+                        <div class="xp-arrow" aria-hidden="true">↗</div>
+                    </article>
+
+                    <article class="xp-row reveal">
+                        <div class="xp-period mono-dim">2025 · NOW</div>
+                        <div class="xp-main">
+                            <h3 class="xp-role">AI/ML Engineer</h3>
+                            <span class="xp-org mono">SCOPEOUT</span>
+                            <p class="xp-desc">Building retrieval augmented generation pipelines, LLM integrations and model fine tuning workflows with Python, LangChain and AWS Bedrock.</p>
+                        </div>
+                        <div class="xp-arrow" aria-hidden="true">↗</div>
+                    </article>
+
+                    <article class="xp-row reveal">
+                        <div class="xp-period mono-dim">2024 · NOW</div>
+                        <div class="xp-main">
+                            <h3 class="xp-role">Full Stack Developer</h3>
+                            <span class="xp-org mono">MENTORLINK</span>
+                            <p class="xp-desc">Building a mentoring platform and a B2G incubation ERP that manages startups and funding programs. React, Node.js and MongoDB in production.</p>
+                        </div>
+                        <div class="xp-arrow" aria-hidden="true">↗</div>
+                    </article>
+
+                    <article class="xp-row reveal">
+                        <div class="xp-period mono-dim">2023 · 2025</div>
+                        <div class="xp-main">
+                            <h3 class="xp-role">Coordinator, E Cell</h3>
+                            <span class="xp-org mono">DAYANANDA SAGAR UNIVERSITY</span>
+                            <p class="xp-desc">Helped establish the Entrepreneurship Cell at DSU and ran programs connecting student founders with mentors, incubators and capital.</p>
+                        </div>
+                        <div class="xp-arrow" aria-hidden="true">↗</div>
+                    </article>
+
+                    <article class="xp-row reveal">
+                        <div class="xp-period mono-dim">2022 · 2026</div>
+                        <div class="xp-main">
+                            <h3 class="xp-role">B.Tech, Computer Science</h3>
+                            <span class="xp-org mono">DAYANANDA SAGAR UNIVERSITY</span>
+                            <p class="xp-desc">Engineering fundamentals by day, IEEE research and hackathons by night. Coauthored RAGClin, presented at ICERECT 2025.</p>
+                        </div>
+                        <div class="xp-arrow" aria-hidden="true">↗</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section class="section projects-section" id="projects">
+            <div class="container">
+                <h2 class="mega-title reveal">MY PROJECTS</h2>
+                <p class="mega-sub mono-dim reveal">FROM RAG PIPELINES TO FULL PRODUCTS.<br>EVERY BUILD HERE SOLVES A REAL PROBLEM WITH STYLE AND SPEED.</p>
+
+                <div class="proj-stack">
+
+                    <article class="proj-panel reveal" id="p-soulnest">
+                        <div class="pp-info">
+                            <div class="pp-links">
+                                <a href="https://soulnest.club" target="_blank" rel="noopener" class="icon-btn" aria-label="SoulNest live site">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+                                </a>
+                            </div>
+                            <h3 class="pp-title">SoulNest</h3>
+                            <p class="pp-desc">An AI powered emotional healing platform that preserves memories of loved ones. Immersive 3D experiences meet careful, humane AI. Live at soulnest.club.</p>
+                            <div class="pp-tags mono">
+                                <span>REACT 19</span><span>THREE.JS</span><span>GSAP</span><span>TYPESCRIPT</span>
+                            </div>
+                        </div>
+                        <div class="pp-shot">
+                            <div class="laptop">
+                                <div class="laptop-screen"><img src="assets/soulnest.jpg" alt="SoulNest landing page" loading="lazy"></div>
+                                <div class="laptop-base"><span class="laptop-notch"></span></div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="proj-panel flip reveal" id="p-mentorlink">
+                        <div class="pp-info">
+                            <div class="pp-links">
+                                <span class="pp-private mono-dim">CLIENT · IN PRODUCTION</span>
+                            </div>
+                            <h3 class="pp-title">MentorLink</h3>
+                            <p class="pp-desc">A mentoring platform and B2G incubation ERP managing startups, mentors and government funding programs at scale. Elevate winner, incubated at DERBI Foundation.</p>
+                            <div class="pp-tags mono">
+                                <span>REACT</span><span>NODE.JS</span><span>MONGODB</span>
+                            </div>
+                        </div>
+                        <div class="pp-shot">
+                            <div class="laptop">
+                                <div class="laptop-screen"><img src="assets/mentorlink.jpg" alt="MentorLink sign in page" loading="lazy"></div>
+                                <div class="laptop-base"><span class="laptop-notch"></span></div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="proj-panel reveal" id="p-scopeout">
+                        <div class="pp-info">
+                            <div class="pp-links">
+                                <a href="https://scopeout.co" target="_blank" rel="noopener" class="icon-btn" aria-label="Scopeout live site">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+                                </a>
+                            </div>
+                            <h3 class="pp-title">Scopeout</h3>
+                            <p class="pp-desc">An AI agent workspace with connectors, skills and canvases. I build the retrieval augmented generation pipelines, LLM integrations and fine tuning workflows behind it.</p>
+                            <div class="pp-tags mono">
+                                <span>PYTHON</span><span>RAG</span><span>AWS BEDROCK</span>
+                            </div>
+                        </div>
+                        <div class="pp-shot">
+                            <div class="laptop">
+                                <div class="laptop-screen"><img src="assets/scopeout.jpg" alt="Scopeout connectors dashboard" loading="lazy"></div>
+                                <div class="laptop-base"><span class="laptop-notch"></span></div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="proj-panel flip reveal" id="p-legalezi">
+                        <div class="pp-info">
+                            <div class="pp-links">
+                                <a href="https://github.com/GS-Tejas-hub/LegalEasy" target="_blank" rel="noopener" class="icon-btn" aria-label="Legalezi on GitHub">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                                </a>
+                            </div>
+                            <h3 class="pp-title">Legalezi</h3>
+                            <p class="pp-desc">The advocate office, in your pocket. Cause lists, hearings, clients and a year of records kept under one cover, built for the Indian bar with an AI assistant.</p>
+                            <div class="pp-tags mono">
+                                <span>REACT</span><span>AI ASSISTANT</span><span>WEB + MOBILE</span>
+                            </div>
+                        </div>
+                        <div class="pp-shot">
+                            <div class="laptop">
+                                <div class="laptop-screen"><img src="assets/legalezi.jpg" alt="Legalezi advocate edition landing page" loading="lazy"></div>
+                                <div class="laptop-base"><span class="laptop-notch"></span></div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="proj-panel reveal" id="p-greonomy">
+                        <div class="pp-info">
+                            <div class="pp-links">
+                                <a href="https://github.com/GS-Tejas-hub/greonomy-architecture" target="_blank" rel="noopener" class="icon-btn" aria-label="Greonomy on GitHub">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                                </a>
+                            </div>
+                            <h3 class="pp-title">Greonomy AI</h3>
+                            <p class="pp-desc">A digital sustainability twin: AI powered lifecycle assessment for manufacturers, plus a document pipeline that extracts charts and data from messy PDFs with OCR.</p>
+                            <div class="pp-tags mono">
+                                <span>PYTHON</span><span>AI</span><span>OCR</span>
+                            </div>
+                        </div>
+                        <div class="pp-shot">
+                            <div class="laptop">
+                                <div class="laptop-screen"><img src="assets/greonomy.jpg" alt="Greonomy sustainability platform" loading="lazy"></div>
+                                <div class="laptop-base"><span class="laptop-notch"></span></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Archive -->
+                <div class="archive reveal">
+                    <span class="archive-label mono-dim">// MORE FROM THE LAB</span>
+                    <a class="archive-row" href="https://github.com/GS-Tejas-hub/DemonHire-ai-job-application-automation" target="_blank" rel="noopener">
+                        <span class="ar-name">DemonHire</span>
+                        <span class="ar-desc mono-dim">AI job application automation that applies while you sleep</span>
+                        <span class="ar-tag mono-dim">TYPESCRIPT</span>
+                        <span class="ar-arrow">↗</span>
+                    </a>
+                    <a class="archive-row" href="https://github.com/GS-Tejas-hub/-Demon-Browser---Control-your-browser-with-AI-assistance" target="_blank" rel="noopener">
+                        <span class="ar-name">Demon Browser</span>
+                        <span class="ar-desc mono-dim">Control your browser with natural language, an AI agent that clicks for you</span>
+                        <span class="ar-tag mono-dim">PYTHON</span>
+                        <span class="ar-arrow">↗</span>
+                    </a>
+                    <a class="archive-row" href="https://github.com/GS-Tejas-hub" target="_blank" rel="noopener">
+                        <span class="ar-name">StartupKit</span>
+                        <span class="ar-desc mono-dim">A founder OS for India, local first, encrypted and offline first</span>
+                        <span class="ar-tag mono-dim">REACT NATIVE</span>
+                        <span class="ar-arrow">↗</span>
+                    </a>
+                    <a class="archive-row" href="https://github.com/GS-Tejas-hub/safescroll-openenv" target="_blank" rel="noopener">
+                        <span class="ar-name">SafeScroll</span>
+                        <span class="ar-desc mono-dim">Child safety RL environment, Meta PyTorch Hackathon 2026</span>
+                        <span class="ar-tag mono-dim">PYTHON</span>
+                        <span class="ar-arrow">↗</span>
+                    </a>
+                    <a class="archive-row" href="https://github.com/GS-Tejas-hub?tab=repositories" target="_blank" rel="noopener">
+                        <span class="ar-name">Full archive</span>
+                        <span class="ar-desc mono-dim">50 repositories and counting on GitHub</span>
+                        <span class="ar-tag mono-dim">ALL</span>
+                        <span class="ar-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ RESEARCH ============ -->
+        <section class="section section-alt" id="research">
+            <div class="container">
+                <div class="sec-head reveal">
+                    <span class="sec-no">004</span>
+                    <span class="sec-line"></span>
+                    <span class="sec-label">RESEARCH &amp; RECOGNITION</span>
+                </div>
+                <div class="research-grid">
+                    <div class="research-card reveal">
+                        <span class="rc-icon accent">◈</span>
+                        <h3 class="rc-title">RAGClin · IEEE</h3>
+                        <p class="rc-desc mono-dim">Coauthored a privacy preserving RAG framework for clinical data. Presented at ICERECT 2025.</p>
+                    </div>
+                    <div class="research-card reveal">
+                        <span class="rc-icon accent">◈</span>
+                        <h3 class="rc-title">Meta PyTorch Hackathon</h3>
+                        <p class="rc-desc mono-dim">Built SafeScroll, a content moderation and child safety OpenEnv environment, in 2026.</p>
+                    </div>
+                    <div class="research-card reveal">
+                        <span class="rc-icon accent">◈</span>
+                        <h3 class="rc-title">Linux Foundation Certified</h3>
+                        <p class="rc-desc mono-dim">Infosec Springboard certifications with scores of 82% and 86%.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section class="section contact-section" id="contact">
+            <div class="container">
+                <h2 class="mega-title reveal">LET'S TALK</h2>
+                <p class="mega-sub mono-dim reveal">GOT A QUESTION, PROPOSAL, PROJECT,<br>OR WANT TO WORK TOGETHER ON SOMETHING?</p>
+
+                <div class="contact-actions reveal">
+                    <a href="mailto:gudur.tejasgs@gmail.com?subject=Project%20Quote%20Request" class="btn m-liquid">GET A QUOTE</a>
+                    <a href="https://www.linkedin.com/in/g-s-tejas-10580929a/" target="_blank" rel="noopener" class="btn m-liquid">DM ON LINKEDIN</a>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-left reveal">
+                        <div class="contact-meta mono">
+                            <a href="mailto:gudur.tejasgs@gmail.com" class="contact-meta-row">
+                                <span class="mono-dim">MAIL</span>
+                                <span>gudur.tejasgs@gmail.com</span>
+                            </a>
+                            <div class="contact-meta-row">
+                                <span class="mono-dim">BASE</span>
+                                <span>Bengaluru, India</span>
+                            </div>
+                            <a href="mailto:gudur.tejasgs@gmail.com?subject=Project%20Quote%20Request" class="contact-meta-row quote-row">
+                                <span class="mono-dim">QUOTE</span>
+                                <span class="status-open"><i class="pulse-dot"></i>GET A QUOTE FOR A PROJECT →</span>
+                            </a>
+                        </div>
+
+                        <div class="contact-socials">
+                            <a href="https://github.com/GS-Tejas-hub" target="_blank" rel="noopener" aria-label="GitHub" class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/g-s-tejas-10580929a/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                            </a>
+                            <a href="https://www.instagram.com/the_demon_king_001_/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.88 5.88 0 0 0-2.13 1.38A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.8.72 1.47 1.38 2.13a5.88 5.88 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.13-1.38 5.88 5.88 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4zM19.85 5.59a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+                            </a>
+                            <a href="mailto:gudur.tejasgs@gmail.com" aria-label="Email" class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.24-8 5-8-5V6.4l8 5 8-5v1.84z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form action="https://formspree.io/f/mayrrkjg" method="POST" class="contact-form reveal m-glass">
+                        <div class="form-row">
+                            <label class="field">
+                                <span class="field-label mono-dim">NAME</span>
+                                <input type="text" name="fullName" required autocomplete="name">
+                            </label>
+                            <label class="field">
+                                <span class="field-label mono-dim">EMAIL</span>
+                                <input type="email" name="emailAddress" required autocomplete="email">
+                            </label>
+                        </div>
+                        <label class="field">
+                            <span class="field-label mono-dim">SUBJECT</span>
+                            <input type="text" name="emailSubject" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label mono-dim">MESSAGE</span>
+                            <textarea name="message" rows="5" required></textarea>
+                        </label>
+                        <button type="submit" class="btn btn-submit">TRANSMIT MESSAGE →</button>
+                    </form>
+                </div>
+
+                <figure class="destiny-wrap reveal">
+                    <div class="destiny-inner">
+                        <blockquote class="destiny-quote">
+                            &ldquo;When a broken man disappears,,,<br>
+                            He rewrites <em>DESTINY</em>&rdquo;
+                        </blockquote>
+                        <figcaption class="destiny-by mono">- G S TEJAS</figcaption>
+                    </div>
+                </figure>
             </div>
         </section>
     </main>
 
-    <!-- Portfolio section -->
-
-    <section class="project portfolio" id="portfolio-section-id">
-        <div class="container" id="portfolio-div">
-            <h2 class="heading1">Latest <span class="Me">Projects</span></h2>
-            <div class="project-container ">
-                <div class="box-project">
-                    <img src="AI Image generator.png" alt="" srcset="">
-                    <div class="info-layer flex-column">
-                        <h3>AI Image Generator</h3>
-                        <p class="intro">This innovative image generator harnesses the latest AI technology to bring your creative visions to life. With stunning precision and limitless possibilities, this tool redefines the boundaries of digital art. Create, explore, and inspire with every generated image</p>
-                    </div>
-                </div>
-                <div class="box-project">
-                    <img src="Xena Events.jpg" alt="" srcset="">
-                    <div class="info-layer flex-column info-layer1">
-                        <h3>A website for event organisation</h3>
-                        <p class="intro">This sleek and modern website showcases the company's expertise in crafting unforgettable events, from lavish weddings to corporate gatherings.</p>
-                    </div>
-                </div>
-                <div class="box-project ">
-                    <img src="Food ordering website.png" alt="" srcset="">
-                    <div class="info-layer flex-column info-layer2">
-                        <h3>Demon's Kitchen</h3>
-                        <p class="intro">This food ordering website connects you with your favorite local restaurants, allowing you to browse menus, place orders, and indulge in the flavors you love.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+        <div class="footer-inner mono-dim">
+            <span>© 2026 G S TEJAS</span>
+            <span class="hud-hide-sm">DESIGNED &amp; BUILT AT 5 AM. NOT A TEMPLATE.</span>
+            <a href="https://www.instagram.com/the_demon_king_001_/" target="_blank" rel="noopener" class="footer-dm">NEED A WEBSITE? DM ME ↗</a>
+            <a href="#home" class="back-top">TOP ↑</a>
         </div>
-    </section>
-     
-    <!-- Contact Me Section -->
-    <section id="contact-section" class="contact-section">
-        <div class="container">
-            <h2 class="contact-heading">Contact <span>Me!</span></h2>
-            <form action="https://formspree.io/f/mayrrkjg" method="POST" class="contact-form">
-                <div class="form-group">
-                    <input type="text" name="fullName" placeholder="Full Name" required>
-                    <input type="email" name="emailAddress" placeholder="Email Address" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="mobileNumber" placeholder="Mobile Number" required>
-                    <input type="text" name="emailSubject" placeholder="Email Subject" required>
-                </div>
-                <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-                <button type="submit" class="btn-submit">Send Message</button>
-            </form>
-        </div>
-    </section>
+    </footer>
 
-    <!-- Footer and Scripts... -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="index.js"></script>
 </body>
 
