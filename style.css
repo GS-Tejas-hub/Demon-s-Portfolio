@@ -1070,7 +1070,7 @@ img, svg, video, canvas { max-width: 100%; }
     .corner-tl, .corner-tr { top: 66px; }
     .corner { width: 26px; height: 26px; }
     /* Mobile only: open up the line spacing between "G S" and "TEJAS". */
-    .hero-name .hn-last { margin-top: 0.16em; }
+    .hero-name .hn-last { margin-top: 0.4em; }
 }
 
 /* Phones: single column tools, stacked CTAs, centered footer */
