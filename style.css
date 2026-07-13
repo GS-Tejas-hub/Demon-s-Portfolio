@@ -24,7 +24,7 @@
     --bg: #070707;
     --bg-2: #0d0d0f;
     --panel: #101013;
-    --cream: #ece7de;
+    --cream: #E4DED7;
     --text: #c9c4ba;
     --dim: #8b867c;
     --faint: rgba(236, 231, 222, 0.28);
@@ -370,6 +370,22 @@ html.cursor-hidden, html.cursor-hidden * { cursor: none !important; }
     height: 100%; width: 100%;
     background: #0E1016; mix-blend-mode: color;
     z-index: 0; pointer-events: none;
+}
+
+/* Highlight bloom: a desaturated, high-contrast, blurred copy of the same
+   smoke plate, screen-blended on top. Screen only lifts pixels that are
+   already bright, so the grey body of the fog is left untouched while the
+   pale wisps turn pure white and bloom. Rotates in lockstep with .hero-bg so
+   the glow always tracks the brightest smoke. */
+.hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
+    background: url('assets/hero-bg.jpg') center center / cover no-repeat;
+    z-index: 1; pointer-events: none;
+    mix-blend-mode: screen;
+    filter: saturate(0) contrast(3.3) brightness(1.18) blur(6px);
+    opacity: 0.92; will-change: transform;
+    animation: hero-swirl 135s linear infinite;
 }
 
 /* Soft drifting fog */
