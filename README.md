@@ -19,6 +19,7 @@
 
 ---
 
+
 ## Why a portfolio still matters
 
 A resume tells people what you did. A portfolio shows them how you think.
