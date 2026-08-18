@@ -107,6 +107,7 @@ The site is a small museum of surface design. Six ways to make a flat rectangle 
 
 ## Built with
 
+
 Vanilla HTML, CSS and JavaScript. The only runtime dependency is [Lenis](https://github.com/darkroomengineering/lenis) for smooth scroll, loaded from a CDN. Fonts come from Google Fonts and local `woff2` files. Live numbers use the public GitHub REST and search APIs. Anime art is stored locally under `assets/anime`. That is the entire supply chain.
 
 ---
