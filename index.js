@@ -11,6 +11,7 @@
     var hero = document.getElementById('home');
 
     /* ============ SMOOTH SCROLL (Lenis) ============ */
+   
     var lenis = null;
 
     function initLenis() {
