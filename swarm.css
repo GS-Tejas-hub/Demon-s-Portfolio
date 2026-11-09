@@ -1,0 +1,268 @@
+/* ============================================================
+   G S TEJAS · PORTFOLIO V3 · SWARM BUILD
+   Styles for the live build in swarm.js. Everything is scoped
+   to html.sw-on, which the boot script in index.html sets before
+   first paint. Delete this file, swarm.js and that script and
+   the original preloader intro comes straight back.
+   ============================================================ */
+
+/* ============ BOOT + TAKEOVER ============ */
+/* Until the engine has hidden its layers, the page is a blank canvas. */
+html.sw-boot body > :not(.sw-canvas):not(.sw-layer):not(.sw-hud) { visibility: hidden !important; }
+
+/* The swarm replaces the preloader and the hero entrance choreography,
+   so every hero element sits in its final state, waiting for an agent. */
+html.sw-on .preloader { display: none !important; }
+html.sw-on .hero .hn-line { clip-path: inset(0 0 0 0); animation: none !important; }
+html.sw-on .hero .hero-kicker,
+html.sw-on .hero .hero-tag,
+html.sw-on .hero .hero-col,
+html.sw-on .hero .hero-hud,
+html.sw-on .hero .corner { opacity: 1; animation: none !important; }
+html.sw-on .hero .hero-emblem {
+    opacity: 1; animation: none !important;
+    transform: translate(-50%, var(--emb-ty, -46%)) scale(1);
+}
+html.sw-on .quote-field { transition: opacity 0.8s ease; }
+html.sw-intro .quote-field { opacity: 0; }
+/* Let the dotted build canvas show through until the smoke is laid in */
+html.sw-intro .hero { background: transparent; }
+html.sw-notrans .reveal { transition: none !important; }
+
+/* A layer waiting for its agent: laid out, invisible, not clickable */
+.sw-hide { visibility: hidden !important; }
+
+/* ============ CANVAS + OVERLAY ============ */
+.sw-canvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, rgba(236, 231, 222, 0.13) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    opacity: 0; transition: opacity 0.9s ease;
+}
+.sw-canvas.on { opacity: 1; }
+
+.sw-layer {
+    position: fixed; inset: 0; z-index: 220;
+    pointer-events: none; overflow: hidden; contain: layout paint;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    transition: opacity 0.45s ease;
+}
+.sw-layer.sw-fading { opacity: 0; }
+body:has(.mobile-menu.open) .sw-layer { opacity: 0; }
+.sw-layer > * { position: absolute; left: 0; top: 0; }
+.sw-layer > .sw-gone { opacity: 0 !important; transition: opacity 0.22s ease !important; }
+
+/* ============ AGENTS ============ */
+.sw-agent { z-index: 5; opacity: 0; transition: opacity 0.35s ease; will-change: transform; }
+.sw-agent.on { opacity: 1; }
+.sw-cur { position: absolute; left: 0; top: 0; transform-origin: 0 0; transition: transform 0.08s ease; }
+.sw-agent.down .sw-cur { transform: scale(0.82); }
+.sw-agent .k { position: absolute; display: none; overflow: visible; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)); }
+.sw-agent[data-tool="arrow"] .k-arrow,
+.sw-agent[data-tool="dup"] .k-dup,
+.sw-agent[data-tool="cross"] .k-cross,
+.sw-agent[data-tool="text"] .k-text,
+.sw-agent[data-tool="pen"] .k-pen { display: block; }
+
+/* Name tag, multiplayer style: who it is and what it is doing */
+.sw-tag {
+    position: absolute; left: 13px; top: 19px;
+    display: flex; align-items: center; gap: 5px;
+    padding: 3px 7px 3px 6px; border-radius: 2px 8px 8px 8px;
+    background: var(--c); color: #0b0b0d;
+    font: 700 9px/1.2 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.1em;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+.sw-tag em { font-style: normal; font-weight: 500; letter-spacing: 0.02em; text-transform: lowercase; opacity: 0.72; }
+.sw-tag em:empty { display: none; }
+.sw-agent.pop .sw-cur,
+.sw-agent.pop .sw-tag { animation: sw-pop 0.42s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+@keyframes sw-pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+.sw-ping {
+    width: 24px; height: 24px; margin: -12px 0 0 -12px; z-index: 4;
+    border-radius: 50%; border: 1.5px solid var(--c);
+    animation: sw-ping 0.45s ease-out forwards;
+}
+@keyframes sw-ping { from { transform: scale(0.2); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+
+/* ============ SELECTIONS, BADGES, CARET ============ */
+.sw-box { box-sizing: border-box; border: 1px solid var(--c); background: var(--f, transparent); will-change: transform; }
+.sw-box.thin { background: transparent; opacity: 0.8; }
+.sw-box.dash { border-style: dashed; background: transparent; }
+.sw-box > i {
+    position: absolute; width: 7px; height: 7px;
+    background: #F4F1EC; border: 1px solid var(--c);
+    opacity: 0; transition: opacity 0.15s ease;
+}
+.sw-box > i:nth-child(1) { left: -4px; top: -4px; }
+.sw-box > i:nth-child(2) { right: -4px; top: -4px; }
+.sw-box > i:nth-child(3) { left: -4px; bottom: -4px; }
+.sw-box > i:nth-child(4) { right: -4px; bottom: -4px; }
+.sw-box.handles > i { opacity: 1; }
+
+.sw-badge { z-index: 4; }
+.sw-badge span {
+    display: block; transform: translateX(-50%);
+    padding: 3px 5px 2px; border-radius: 3px;
+    background: var(--c); color: #0b0b0d;
+    font: 700 9px/1.2 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.sw-caret { z-index: 4; background: var(--c); border-radius: 1px; box-shadow: 0 0 10px var(--c); }
+.sw-caret.blink { animation: sw-blink 0.9s steps(1) infinite; }
+@keyframes sw-blink { 50% { opacity: 0; } }
+
+/* Pen tool: rubber band and anchor points */
+.sw-line { z-index: 3; height: 1px; background: var(--c); transform-origin: 0 50%; }
+.sw-anchor { z-index: 4; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: #F4F1EC; border: 1px solid var(--c); }
+
+/* Alt-drag spacing readout */
+.sw-gap { z-index: 4; }
+.sw-gap i { position: absolute; left: 0; top: 0; background: #FF3B3B; }
+.sw-gap b {
+    position: absolute; transform: translate(-50%, -50%);
+    padding: 2px 4px; border-radius: 2px; background: #FF3B3B; color: #fff;
+    font: 700 8.5px/1.2 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Image placeholder while an asset is being dropped in */
+.sw-ph {
+    z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    overflow: hidden; border: 1px dashed rgba(236, 231, 222, 0.22);
+    background: repeating-linear-gradient(135deg, rgba(236, 231, 222, 0.035) 0 10px, rgba(236, 231, 222, 0.065) 10px 20px);
+    color: rgba(236, 231, 222, 0.62);
+    font: 600 9px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.sw-ph svg { width: 26px; height: 26px; }
+.sw-ph::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 35%, rgba(236, 231, 222, 0.09) 50%, transparent 65%);
+    background-size: 250% 100%;
+    animation: sw-shimmer 1.1s linear infinite;
+}
+@keyframes sw-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+
+/* ============ RULERS + GUIDES ============ */
+.sw-ruler {
+    z-index: 3; background-color: rgba(10, 10, 12, 0.94);
+    color: rgba(236, 231, 222, 0.45);
+    font: 500 8px/1 'JetBrains Mono', ui-monospace, monospace;
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.sw-ruler-x {
+    right: 0; height: 18px; border-bottom: 1px solid rgba(236, 231, 222, 0.14);
+    background-image: linear-gradient(90deg, rgba(236, 231, 222, 0.4) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(236, 231, 222, 0.22) 1px, transparent 1px);
+    background-size: 100px 100%, 10px 5px;
+    background-position: 0 0, 0 100%;
+    background-repeat: repeat-x;
+    transform: translateY(-101%);
+}
+.sw-ruler-y {
+    bottom: 0; width: 18px; border-right: 1px solid rgba(236, 231, 222, 0.14);
+    background-image: linear-gradient(180deg, rgba(236, 231, 222, 0.4) 1px, transparent 1px),
+                      linear-gradient(180deg, rgba(236, 231, 222, 0.22) 1px, transparent 1px);
+    background-size: 100% 100px, 5px 10px;
+    background-position: 0 0, 100% 0;
+    background-repeat: repeat-y;
+    transform: translateX(-101%);
+}
+.sw-ruler-c {
+    z-index: 4; width: 18px; height: 18px; background: #0b0b0d;
+    border-right: 1px solid rgba(236, 231, 222, 0.14); border-bottom: 1px solid rgba(236, 231, 222, 0.14);
+    transform: scale(0); transform-origin: 0 0; transition: transform 0.4s ease;
+}
+.sw-layer.rulers .sw-ruler,
+.sw-layer.rulers .sw-ruler-c { transform: none; }
+.sw-ruler span { position: absolute; }
+.sw-ruler-x span { top: 3px; margin-left: 3px; }
+.sw-ruler-y span { left: 3px; margin-top: 3px; writing-mode: vertical-rl; transform: rotate(180deg); }
+
+.sw-guide { z-index: 2; background: #FF3B3B; opacity: 0.85; }
+.sw-guide.v { width: 1px; height: 100%; }
+.sw-guide.h { height: 1px; width: 100%; }
+.sw-guide b {
+    position: absolute; padding: 2px 4px; border-radius: 2px;
+    background: #FF3B3B; color: #fff; white-space: nowrap;
+    font: 700 8.5px/1.2 'JetBrains Mono', ui-monospace, monospace;
+}
+.sw-guide.v b { top: 24px; left: 4px; }
+.sw-guide.h b { left: 24px; top: 4px; }
+
+/* ============ BOOT TERMINAL ============ */
+.sw-layer .sw-term {
+    z-index: 6; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font: 500 13px/1.75 'JetBrains Mono', ui-monospace, monospace;
+    color: #c9c4ba; white-space: pre; text-align: left;
+    transition: opacity 0.35s ease, transform 0.5s ease;
+}
+.sw-term .p { color: #FF3B3B; }
+.sw-term .ok { color: #6EE787; }
+.sw-term .dim { color: #8b867c; }
+.sw-term .out { color: #8b867c; }
+.sw-term .cur {
+    display: inline-block; width: 0.6em; height: 1.15em; margin-left: 2px; vertical-align: -0.22em;
+    background: #E4DED7; animation: sw-blink 0.9s steps(1) infinite;
+}
+.sw-term.ran .cur { display: none; }
+.sw-layer .sw-term.gone { opacity: 0; transform: translate(-50%, -64%); }
+
+/* ============ STATUS PILL ============ */
+.sw-hud {
+    position: fixed; left: 50%; bottom: 58px; z-index: 230;
+    display: flex; align-items: center; gap: 11px;
+    padding: 5px 5px 5px 9px; border-radius: 999px;
+    background: rgba(11, 11, 13, 0.92); border: 1px solid rgba(236, 231, 222, 0.14);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    font: 500 9.5px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.14em;
+    color: #c9c4ba; white-space: nowrap;
+    opacity: 0; transform: translate(-50%, 18px); pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.sw-hud.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.sw-av { display: flex; padding-left: 5px; }
+.sw-av i {
+    width: 17px; height: 17px; margin-left: -5px; border-radius: 50%;
+    border: 1.5px solid #0b0b0d; background: var(--c); color: #0b0b0d;
+    font: 800 8px/14px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0;
+    text-align: center; font-style: normal;
+}
+.sw-msg b { color: #E4DED7; font-weight: 700; }
+.sw-msg s { text-decoration: none; color: #FF3B3B; margin: 0 0.5em; }
+.sw-msg .ok { color: #6EE787; }
+.sw-bar { width: 70px; height: 3px; border-radius: 2px; background: rgba(236, 231, 222, 0.12); overflow: hidden; }
+.sw-bar i {
+    display: block; height: 100%;
+    background: linear-gradient(90deg, #7a1414, #FF3B3B);
+    transform-origin: 0 50%; transform: scaleX(var(--p, 0)); transition: transform 0.35s ease;
+}
+.sw-pct { min-width: 3.1em; text-align: right; color: #E4DED7; }
+.sw-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer;
+    font: inherit; letter-spacing: 0.16em; color: #E4DED7;
+    padding: 7px 11px; border-radius: 999px;
+    background: rgba(236, 231, 222, 0.06); border: 1px solid rgba(236, 231, 222, 0.2);
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.sw-btn:hover, .sw-btn:focus-visible { background: #E4DED7; color: #0b0b0d; outline: none; }
+.sw-hud.done .sw-bar, .sw-hud.done .sw-pct { display: none; }
+
+/* Footer link that runs the build again */
+.sw-replay {
+    background: none; border: 0; padding: 0; margin: 0;
+    font: inherit; letter-spacing: inherit; color: inherit;
+    cursor: pointer; transition: color 0.3s;
+}
+.sw-replay:hover, .sw-replay:focus-visible { color: var(--accent, #ff3b3b); outline: none; }
+
+@media (max-width: 560px) {
+    .sw-layer .sw-term { font-size: 11px; }
+    .sw-hud { bottom: 10px; gap: 9px; font-size: 8.5px; letter-spacing: 0.1em; }
+    .sw-av, .sw-msg .wide { display: none; }
+    .sw-bar { width: 44px; }
+    .sw-tag { font-size: 8px; }
+}

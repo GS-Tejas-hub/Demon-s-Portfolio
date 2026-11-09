@@ -94,21 +94,49 @@ The site is a small museum of surface design. Six ways to make a flat rectangle 
 
 ---
 
+## The swarm build
+
+Open the site and you do not get a loading screen. You get a team.
+
+A terminal line types `swarm build ./gs-tejas --agents 8`, and eight agents spawn around it, each a multiplayer style cursor with a name tag: ONI, KITSUNE, RAIJIN, KAPPA, KAGE, TENGU, YUKI and TANUKI. Rulers slide in. Then they build the page in front of you.
+
+| Move | What you see |
+| :-- | :-- |
+| **Draw** | Crosshair drag with a live `W × H` readout, then the fill fades in |
+| **Type** | A text box is dragged out and the copy is typed behind a blinking caret. The name goes in letter by letter at full size |
+| **Pen** | Anchor points and a rubber band line. The hero frame corners and dividers are drawn this way |
+| **Guides** | Red guides are dragged out of the rulers and parked on the hero's centre lines |
+| **Duplicate** | An agent selects a finished card and alt-drags a copy into place, with a red spacing readout |
+| **Place image** | A dashed placeholder with the file name, then the screenshot sweeps in from the top |
+
+The hero ships in about five seconds. Everything below it is built when you scroll to it, so the swarm follows you down the page. When the last layer lands, the agents gather on your cursor and log off.
+
+**How it works.** Nothing is cloned or faked. Every element stays in the real DOM, hidden until an agent places it, and each one waits for whatever contains it, so a project title never appears before its panel. That is why links, the magnifier cursor, the coverflow and the live stats keep working throughout, and why the finished page is identical to the classic one.
+
+**Controls.** `Esc` finishes the build instantly. `REPLAY THE BUILD ↻` in the footer runs it again. Add `?swarm=0` to the URL for the classic intro, or `?swarm=1` to force the build. A status bar with progress and a SKIP button is built in but switched off; set `STATUS_PILL = true` at the top of `swarm.js` to show it.
+
+**Fallbacks.** Visitors who prefer reduced motion, search engines and link preview bots get the classic site straight away. If `swarm.js` ever fails to load, the page shows normally instead of staying blank.
+
+The idea is a tribute to [Swarm](https://califa.github.io/swarm-site/) by [Joel Califa](https://joelcalifa.com), a site that builds itself as you scroll. The engine here is written from scratch for this portfolio.
+
+---
+
 ## Signature interactions
 
+- **Live swarm build.** Eight named agents draw, type, pen, duplicate and drop images until the page exists. See [The swarm build](#the-swarm-build).
 - **Liquid glass magnifier cursor.** The native pointer disappears. In its place a refractive lens follows the mouse and magnifies the exact letters underneath it, then clears the moment it hovers empty space.
 - **3D anime coverflow.** Eight posters ride a perspective carousel that drifts on its own, snaps color at the center, and responds to drag with real momentum and touch axis locking.
 - **A living hero.** A smoke plate rotates so the center stays still while the outer radius sweeps faster, graded toward `#0E1016` with the red glow left untouched. Two counter rotating layers give it turbulence.
 - **Live GitHub stats.** Repositories, contributions and pull requests are pulled from public GitHub endpoints on load and counted up in place, so the numbers are never stale.
 - **Floating anime quotes.** Lines flash in the gutters like lightning, hold, and fade, drifting upward on their own timing.
-- **Orchestrated load.** A clip path preloader, a staggered name reveal, an oni seal that spins into place, and reveal on scroll throughout, all riding Lenis smooth scroll.
+- **Orchestrated load.** The classic intro is still here for reduced motion and `?swarm=0`: a clip path preloader, a staggered name reveal, an oni seal that spins into place, and reveal on scroll throughout, all riding Lenis smooth scroll.
 
 ---
 
 ## Built with
 
 
-Vanilla HTML, CSS and JavaScript. The only runtime dependency is [Lenis](https://github.com/darkroomengineering/lenis) for smooth scroll, loaded from a CDN. Fonts come from Google Fonts and local `woff2` files. Live numbers use the public GitHub REST and search APIs. Anime art is stored locally under `assets/anime`. That is the entire supply chain.
+Vanilla HTML, CSS and JavaScript. The only runtime dependency is [Lenis](https://github.com/darkroomengineering/lenis) for smooth scroll, loaded from a CDN. The swarm build is a single local script with no dependencies. Fonts come from Google Fonts and local `woff2` files. Live numbers use the public GitHub REST and search APIs. Anime art is stored locally under `assets/anime`. That is the entire supply chain.
 
 ---
 
@@ -134,6 +162,8 @@ Demon-s-Portfolio/
 ├─ index.html          the single page, all six sections
 ├─ style.css           design system, morphisms, responsive rules
 ├─ index.js            cursor, coverflow, live stats, reveals
+├─ swarm.js            the live build: agents, scheduler, build moves
+├─ swarm.css           agents, selections, rulers, status pill
 ├─ assets/
 │  ├─ fonts/           Kordix, DEL THA, Toxia, NYXERIN, NeoFolia
 │  ├─ anime/           poster art for the coverflow

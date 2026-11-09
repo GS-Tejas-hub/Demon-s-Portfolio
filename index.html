@@ -10,12 +10,33 @@
     <meta property="og:description" content="Founder of Five AM Labs. Building AI products before the rest of the city wakes up.">
     <meta property="og:type" content="website">
     <title>G S Tejas | Full Stack × AI/ML × Founder</title>
+    <!-- Swarm build: decide before first paint whether agents build the page live.
+         Off for reduced motion, bots and ?swarm=0. ?swarm=1 forces it on. -->
+    <script>
+        (function (d, w) {
+            var r = d.documentElement, q = w.location.search;
+            var force = /[?&]swarm=1(&|$)/.test(q), off = /[?&](swarm=0|noswarm)(&|$)/.test(q);
+            var calm = w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var bot = navigator.webdriver || /bot|crawl|spider|slurp|lighthouse|headless|prerender/i.test(navigator.userAgent);
+            if (off || (!force && (calm || bot))) return;
+            r.classList.add('sw-on', 'sw-boot');
+            // Failsafe: if swarm.js never starts, show the classic page instead of a blank one.
+            function rescue() {
+                if (w.__swarmAlive) return;
+                r.classList.remove('sw-on', 'sw-boot', 'sw-intro');
+                var h = d.querySelectorAll('.sw-hide');
+                for (var i = 0; i < h.length; i++) h[i].classList.remove('sw-hide');
+            }
+            d.addEventListener('DOMContentLoaded', function () { setTimeout(rescue, 300); });
+            setTimeout(rescue, 8000);
+        })(document, window);
+    </script>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Sans+JP:wght@700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="swarm.css">
 </head>
 
 <body>
@@ -684,6 +705,7 @@
         </div>
     </footer>
 
+    <script src="swarm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="index.js"></script>
 </body>
