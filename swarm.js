@@ -10,7 +10,7 @@
    until an agent places it, so links, the cursor lens, the anime
    coverflow and the live GitHub stats keep working throughout.
 
-   Esc or SKIP finishes instantly. Reduced motion, bots and
+   Esc finishes instantly. Reduced motion, bots and
    ?swarm=0 get the classic intro (see the boot script in
    index.html). ?swarm=1 forces the build on.
 
@@ -33,6 +33,7 @@
     const SMALL = window.matchMedia('(max-width: 768px)').matches;
     const COUNT = SMALL ? 5 : 8;
     const PACE = 1.15;              // global tempo, raise to build faster
+    const STATUS_PILL = false;      // bottom progress bar with a SKIP button. Esc always skips
 
     // What gets built, top to bottom. Kinds:
     //   rect      crosshair drag with a live W × H badge, then the fill fades in
@@ -1248,8 +1249,8 @@
             canvas = el('div', 'sw-canvas');
             layer = el('div', 'sw-layer');
             layer.setAttribute('aria-hidden', 'true');
-            hud = makeHud();
-            document.body.insertBefore(hud.n, document.body.firstChild);
+            hud = makeHud();         // always tracked; only shown when STATUS_PILL is on
+            if (STATUS_PILL) document.body.insertBefore(hud.n, document.body.firstChild);
             document.body.insertBefore(layer, document.body.firstChild);
             document.body.insertBefore(canvas, document.body.firstChild);
             root.classList.remove('sw-boot');

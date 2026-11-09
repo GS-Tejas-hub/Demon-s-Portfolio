@@ -109,11 +109,11 @@ A terminal line types `swarm build ./gs-tejas --agents 8`, and eight agents spaw
 | **Duplicate** | An agent selects a finished card and alt-drags a copy into place, with a red spacing readout |
 | **Place image** | A dashed placeholder with the file name, then the screenshot sweeps in from the top |
 
-The hero ships in about five seconds. Everything below it is built when you scroll to it, so the swarm follows you down the page, and a status pill tracks the progress. When the last layer lands, the agents gather on your cursor and log off.
+The hero ships in about five seconds. Everything below it is built when you scroll to it, so the swarm follows you down the page. When the last layer lands, the agents gather on your cursor and log off.
 
 **How it works.** Nothing is cloned or faked. Every element stays in the real DOM, hidden until an agent places it, and each one waits for whatever contains it, so a project title never appears before its panel. That is why links, the magnifier cursor, the coverflow and the live stats keep working throughout, and why the finished page is identical to the classic one.
 
-**Controls.** `SKIP` or `Esc` finishes the build instantly. `REPLAY THE BUILD ↻` in the footer runs it again. Add `?swarm=0` to the URL for the classic intro, or `?swarm=1` to force the build.
+**Controls.** `Esc` finishes the build instantly. `REPLAY THE BUILD ↻` in the footer runs it again. Add `?swarm=0` to the URL for the classic intro, or `?swarm=1` to force the build. A status bar with progress and a SKIP button is built in but switched off; set `STATUS_PILL = true` at the top of `swarm.js` to show it.
 
 **Fallbacks.** Visitors who prefer reduced motion, search engines and link preview bots get the classic site straight away. If `swarm.js` ever fails to load, the page shows normally instead of staying blank.
 
