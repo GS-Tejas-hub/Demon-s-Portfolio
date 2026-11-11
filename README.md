@@ -96,16 +96,15 @@ The site is a small museum of surface design. Six ways to make a flat rectangle 
 
 ## The swarm build
 
-Open the site and you do not get a loading screen. You get a team.
+Open the site and the preloader plays as it always has: *Building, Shipping, Innovating.* When its curtain lifts, the page underneath is empty and a team is waiting.
 
-A terminal line types `swarm build ./gs-tejas --agents 8`, and eight agents spawn around it, each a multiplayer style cursor with a name tag: ONI, KITSUNE, RAIJIN, KAPPA, KAGE, TENGU, YUKI and TANUKI. Rulers slide in. Then they build the page in front of you.
+Eight agents spawn on a dotted canvas, each a multiplayer style cursor with a name tag: ONI, KITSUNE, RAIJIN, KAPPA, KAGE, TENGU, YUKI and TANUKI. Then they build the page in front of you.
 
 | Move | What you see |
 | :-- | :-- |
 | **Draw** | Crosshair drag with a live `W × H` readout, then the fill fades in |
 | **Type** | A text box is dragged out and the copy is typed behind a blinking caret. The name goes in letter by letter at full size |
 | **Pen** | Anchor points and a rubber band line. The hero frame corners and dividers are drawn this way |
-| **Guides** | Red guides are dragged out of the rulers and parked on the hero's centre lines |
 | **Duplicate** | An agent selects a finished card and alt-drags a copy into place, with a red spacing readout |
 | **Place image** | A dashed placeholder with the file name, then the screenshot sweeps in from the top |
 
@@ -129,7 +128,7 @@ The idea is a tribute to [Swarm](https://califa.github.io/swarm-site/) by [Joel 
 - **A living hero.** A smoke plate rotates so the center stays still while the outer radius sweeps faster, graded toward `#0E1016` with the red glow left untouched. Two counter rotating layers give it turbulence.
 - **Live GitHub stats.** Repositories, contributions and pull requests are pulled from public GitHub endpoints on load and counted up in place, so the numbers are never stale.
 - **Floating anime quotes.** Lines flash in the gutters like lightning, hold, and fade, drifting upward on their own timing.
-- **Orchestrated load.** The classic intro is still here for reduced motion and `?swarm=0`: a clip path preloader, a staggered name reveal, an oni seal that spins into place, and reveal on scroll throughout, all riding Lenis smooth scroll.
+- **Orchestrated load.** A clip path preloader opens the site. With `?swarm=0` it is followed by the classic hero entrance: a staggered name reveal, an oni seal that spins into place, and reveal on scroll throughout, all riding Lenis smooth scroll. Reduced motion skips straight to the finished page.
 
 ---
 
@@ -163,7 +162,7 @@ Demon-s-Portfolio/
 ├─ style.css           design system, morphisms, responsive rules
 ├─ index.js            cursor, coverflow, live stats, reveals
 ├─ swarm.js            the live build: agents, scheduler, build moves
-├─ swarm.css           agents, selections, rulers, status pill
+├─ swarm.css           agents, selections, status pill
 ├─ assets/
 │  ├─ fonts/           Kordix, DEL THA, Toxia, NYXERIN, NeoFolia
 │  ├─ anime/           poster art for the coverflow
