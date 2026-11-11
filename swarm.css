@@ -3,16 +3,16 @@
    Styles for the live build in swarm.js. Everything is scoped
    to html.sw-on, which the boot script in index.html sets before
    first paint. Delete this file, swarm.js and that script and
-   the original preloader intro comes straight back.
+   the original hero entrance comes straight back.
    ============================================================ */
 
 /* ============ BOOT + TAKEOVER ============ */
-/* Until the engine has hidden its layers, the page is a blank canvas. */
-html.sw-boot body > :not(.sw-canvas):not(.sw-layer):not(.sw-hud) { visibility: hidden !important; }
+/* Until the engine has hidden its layers, only the preloader shows. */
+html.sw-boot body > :not(.preloader):not(.sw-canvas):not(.sw-layer):not(.sw-hud) { visibility: hidden !important; }
 
-/* The swarm replaces the preloader and the hero entrance choreography,
-   so every hero element sits in its final state, waiting for an agent. */
-html.sw-on .preloader { display: none !important; }
+/* The preloader plays as it always did. The swarm replaces the hero
+   entrance choreography, so every hero element sits in its final
+   state, waiting for an agent. */
 html.sw-on .hero .hn-line { clip-path: inset(0 0 0 0); animation: none !important; }
 html.sw-on .hero .hero-kicker,
 html.sw-on .hero .hero-tag,
@@ -145,72 +145,6 @@ body:has(.mobile-menu.open) .sw-layer { opacity: 0; }
 }
 @keyframes sw-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
 
-/* ============ RULERS + GUIDES ============ */
-.sw-ruler {
-    z-index: 3; background-color: rgba(10, 10, 12, 0.94);
-    color: rgba(236, 231, 222, 0.45);
-    font: 500 8px/1 'JetBrains Mono', ui-monospace, monospace;
-    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.sw-ruler-x {
-    right: 0; height: 18px; border-bottom: 1px solid rgba(236, 231, 222, 0.14);
-    background-image: linear-gradient(90deg, rgba(236, 231, 222, 0.4) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(236, 231, 222, 0.22) 1px, transparent 1px);
-    background-size: 100px 100%, 10px 5px;
-    background-position: 0 0, 0 100%;
-    background-repeat: repeat-x;
-    transform: translateY(-101%);
-}
-.sw-ruler-y {
-    bottom: 0; width: 18px; border-right: 1px solid rgba(236, 231, 222, 0.14);
-    background-image: linear-gradient(180deg, rgba(236, 231, 222, 0.4) 1px, transparent 1px),
-                      linear-gradient(180deg, rgba(236, 231, 222, 0.22) 1px, transparent 1px);
-    background-size: 100% 100px, 5px 10px;
-    background-position: 0 0, 100% 0;
-    background-repeat: repeat-y;
-    transform: translateX(-101%);
-}
-.sw-ruler-c {
-    z-index: 4; width: 18px; height: 18px; background: #0b0b0d;
-    border-right: 1px solid rgba(236, 231, 222, 0.14); border-bottom: 1px solid rgba(236, 231, 222, 0.14);
-    transform: scale(0); transform-origin: 0 0; transition: transform 0.4s ease;
-}
-.sw-layer.rulers .sw-ruler,
-.sw-layer.rulers .sw-ruler-c { transform: none; }
-.sw-ruler span { position: absolute; }
-.sw-ruler-x span { top: 3px; margin-left: 3px; }
-.sw-ruler-y span { left: 3px; margin-top: 3px; writing-mode: vertical-rl; transform: rotate(180deg); }
-
-.sw-guide { z-index: 2; background: #FF3B3B; opacity: 0.85; }
-.sw-guide.v { width: 1px; height: 100%; }
-.sw-guide.h { height: 1px; width: 100%; }
-.sw-guide b {
-    position: absolute; padding: 2px 4px; border-radius: 2px;
-    background: #FF3B3B; color: #fff; white-space: nowrap;
-    font: 700 8.5px/1.2 'JetBrains Mono', ui-monospace, monospace;
-}
-.sw-guide.v b { top: 24px; left: 4px; }
-.sw-guide.h b { left: 24px; top: 4px; }
-
-/* ============ BOOT TERMINAL ============ */
-.sw-layer .sw-term {
-    z-index: 6; left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    font: 500 13px/1.75 'JetBrains Mono', ui-monospace, monospace;
-    color: #c9c4ba; white-space: pre; text-align: left;
-    transition: opacity 0.35s ease, transform 0.5s ease;
-}
-.sw-term .p { color: #FF3B3B; }
-.sw-term .ok { color: #6EE787; }
-.sw-term .dim { color: #8b867c; }
-.sw-term .out { color: #8b867c; }
-.sw-term .cur {
-    display: inline-block; width: 0.6em; height: 1.15em; margin-left: 2px; vertical-align: -0.22em;
-    background: #E4DED7; animation: sw-blink 0.9s steps(1) infinite;
-}
-.sw-term.ran .cur { display: none; }
-.sw-layer .sw-term.gone { opacity: 0; transform: translate(-50%, -64%); }
-
 /* ============ STATUS PILL ============ */
 .sw-hud {
     position: fixed; left: 50%; bottom: 58px; z-index: 230;
@@ -260,7 +194,6 @@ body:has(.mobile-menu.open) .sw-layer { opacity: 0; }
 .sw-replay:hover, .sw-replay:focus-visible { color: var(--accent, #ff3b3b); outline: none; }
 
 @media (max-width: 560px) {
-    .sw-layer .sw-term { font-size: 11px; }
     .sw-hud { bottom: 10px; gap: 9px; font-size: 8.5px; letter-spacing: 0.1em; }
     .sw-av, .sw-msg .wide { display: none; }
     .sw-bar { width: 44px; }

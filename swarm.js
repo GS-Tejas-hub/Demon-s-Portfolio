@@ -1,10 +1,11 @@
 /* ============================================================
    G S TEJAS · PORTFOLIO V3 · SWARM BUILD
-   Open the page and a swarm of agents builds it in front of you:
-   crosshair boxes with a live W × H readout, copy typed behind a
-   caret, pen-tool lines, ruler guides, alt-drag duplicates and
-   image drops. Sections further down are built when you scroll
-   to them, so the swarm follows you down the page.
+   Open the page and the preloader plays as it always did. When
+   its curtain lifts, a swarm of agents builds the page in front
+   of you: crosshair boxes with a live W × H readout, copy typed
+   behind a caret, pen-tool lines, alt-drag duplicates and image
+   drops. Sections further down are built when you scroll to
+   them, so the swarm follows you down the page.
 
    Nothing is cloned. Every layer stays in the real DOM, hidden
    until an agent places it, so links, the cursor lens, the anime
@@ -41,13 +42,11 @@
     //   pen       pen-tool anchors and a rubber band, the line draws along
     //   media     drag a frame, drop a placeholder, sweep the image in
     //   dup       select a built sibling and alt-drag a copy into place
-    //   backdrop, emblem, stage, guide: one-off moves for the hero and coverflow
+    //   backdrop, emblem, stage: one-off moves for the hero and coverflow
     // A layer waits for the nearest layer that contains it (a card waits for
     // its panel), and a duplicate waits for the first of its siblings.
     const PLAN = [
         ['#home', 'backdrop', { hide: '.hero-bg, .hero-tint, .hero-glow', prefer: 0, pri: -2 }],
-        ['.hero-name', 'guide', { axis: 'x', pri: -1, desktop: true }],
-        ['.hero-name', 'guide', { axis: 'y', pri: -1, desktop: true }],
         ['.brand-mark', 'text'],
         ['.brand-divider', 'pen', { path: 'v' }],
         ['.brand-sub', 'text'],
@@ -289,8 +288,8 @@
         let clock = 0, rush = 1, phase = 0, built = 0, total = 0, frameNo = 0, raf = 0, last = 0;
         let mx = vw / 2, my = vh / 2, hasMouse = false, sy = window.scrollY, svel = 0;
         let ox = vw / 2, oy = vh / 2;              // orbit centre
-        let heroDone = false, dead = false, quiet = false, guides = [];
-        let layer = null, canvas = null, hud = null, rulers = null, sys = null;
+        let heroDone = false, dead = false, quiet = false;
+        let layer = null, canvas = null, hud = null, sys = null;
         const born = performance.now();
 
         /* ---- engine clock: every wait and tween runs on it, so the swarm
@@ -489,20 +488,6 @@
             setTimeout(function () { n.remove(); }, 480);
         }
 
-        /* ---- rulers (desktop): Figma-style chrome for the hero build ---- */
-        function makeRulers() {
-            const rx = el('div', 'sw-ruler sw-ruler-x', layer), ry = el('div', 'sw-ruler sw-ruler-y', layer);
-            el('div', 'sw-ruler-c', layer);
-            function render() {
-                let hx = '', hy = '';
-                for (let x = 100; x < vw; x += 100) hx += '<span style="left:' + x + 'px">' + x + '</span>';
-                for (let y = 100; y < vh; y += 100) hy += '<span style="top:' + y + 'px">' + y + '</span>';
-                rx.innerHTML = hx; ry.innerHTML = hy;
-            }
-            render();
-            return { render: render };
-        }
-
         /* ---- status pill ---- */
         function makeHud() {
             const n = el('div', 'sw-hud');
@@ -542,7 +527,7 @@
                     if (isDone || phase !== 1) return;
                     render();
                     const now = performance.now();
-                    if (running.some(function (t) { return !t.virtual; })) { quietSince = 0; api.show(); }
+                    if (running.length) { quietSince = 0; api.show(); }
                     else if (now > flashUntil) {
                         if (!quietSince) quietSince = now;
                         if (now - quietSince > 2400) api.hide();
@@ -572,9 +557,9 @@
         function task(e, kind, o) {
             return {
                 el: e, kind: kind, o: o, state: 0, ready: false, deps: [], master: null, group: null, src: null,
-                hide: kind === 'guide' ? [] : o.hide ? Array.prototype.slice.call(e.querySelectorAll(o.hide)) : [e],
+                hide: o.hide ? Array.prototype.slice.call(e.querySelectorAll(o.hide)) : [e],
                 r: null, ui: [], agent: null, ctx: null, vis: false, since: 0, k: 0, stops: null,
-                section: sectionOf(e), fixed: !!e.closest('.site-header'), virtual: kind === 'guide', order: 0
+                section: sectionOf(e), fixed: !!e.closest('.site-header'), order: 0
             };
         }
         function collect() {
@@ -602,16 +587,16 @@
                     return;
                 }
                 els.forEach(function (e) {
-                    if (kind !== 'guide') { if (seen.has(e)) return; seen.add(e); }
+                    if (seen.has(e)) return;
+                    seen.add(e);
                     tasks.push(task(e, kind, o));
                 });
             });
         }
         function wire() {
             const byEl = new Map();
-            tasks.forEach(function (t, i) { t.order = i; if (!t.virtual) byEl.set(t.el, t); });
+            tasks.forEach(function (t, i) { t.order = i; byEl.set(t.el, t); });
             tasks.forEach(function (t) {
-                if (t.virtual) return;
                 for (let p = t.el.parentElement; p && p !== document.body; p = p.parentElement) {
                     const pt = byEl.get(p);
                     if (pt) { t.deps.push(pt); break; }
@@ -638,7 +623,7 @@
             const c = t.ctx = new Ctx(a, t);
             ctxs.push(c);
             a.mode = 'work';
-            if (!t.virtual) hud.section(t.section);
+            hud.section(t.section);
             Promise.resolve()
                 .then(function () { return (KIND[t.kind] || KIND.rect)(c); })
                 .then(function () { finish(t); }, function (err) {
@@ -657,7 +642,7 @@
         }
         function clean(t) {
             t.hide.forEach(function (e) { e.classList.remove('sw-hide'); e.style.clipPath = ''; e.style.opacity = ''; });
-            if (!t.virtual) t.el.style.clipPath = '';
+            t.el.style.clipPath = '';
             if (t.kind === 'emblem') t.el.style.transform = '';
             t.ui.slice().forEach(function (it) { drop(it, 180); });
         }
@@ -670,8 +655,9 @@
             k = pending.indexOf(t);
             if (k >= 0) pending.splice(k, 1);
             clean(t);
-            if (!t.virtual) { built++; hud.progress(); }
-            if (animated && !quiet && !t.virtual) countUp(t.el);
+            built++;
+            hud.progress();
+            if (animated && !quiet) countUp(t.el);
             milestones();
         }
         // Skip the choreography and put the layer where it belongs.
@@ -920,39 +906,9 @@
             drop(d.b); drop(d.bd);
         };
 
-        // Drag a red guide out of the ruler and park it on the hero's centre line.
-        KIND.guide = async function (c) {
-            const a = c.a, t = c.t, X = t.o.axis === 'x';
-            const target = function () { return X ? t.r.left + t.r.width / 2 : t.r.top + t.r.height / 2; };
-            const y0 = clamp(t.r.top + t.r.height * 0.12, 90, vh - 90), x0 = clamp(t.r.left + t.r.width * 0.16, 90, vw - 90);
-            a.say('guides');
-            await c.fly(function () { return X ? [9, y0] : [x0, 9]; });
-            a.tool('arrow');
-            await c.press();
-            const st = { p: 0 };
-            const g = ui(null, 'sw-guide ' + (X ? 'v' : 'h'), null, '<b></b>');
-            g.t = t;
-            guides.push(g);
-            const lb = g.n.firstChild;
-            const pos = function () { return lerp(9, target(), st.p); };
-            g.upd = function () {
-                const v = pos();
-                if (X) place(g.n, v, 0); else place(g.n, 0, v);
-                const txt = (X ? 'X ' : 'Y ') + Math.round(X ? v : v + window.scrollY);
-                if (lb.textContent !== txt) lb.textContent = txt;
-            };
-            a.follow = function () { return X ? [pos(), y0] : [x0, pos()]; };
-            await c.tween(620, function (p) { st.p = ease(p); });
-            c.release();
-            t.ready = true;
-            await c.wait(120);
-        };
-
         /* ============ SCHEDULER ============ */
         function nearest(free, t) {
-            const r = t.r;
-            const x = t.kind === 'guide' ? (t.o.axis === 'x' ? 0 : r.left) : r.left;
-            const y = t.kind === 'guide' ? (t.o.axis === 'x' ? r.top : 0) : r.top;
+            const x = t.r.left, y = t.r.top;
             let best = free[0], bd = Infinity;
             free.forEach(function (a) {
                 const d = (a.x - x) * (a.x - x) + (a.y - y) * (a.y - y) + (a.vis ? 0 : 60000);
@@ -1094,10 +1050,7 @@
         function heroShipped() {
             heroDone = true;
             root.classList.remove('sw-intro');
-            layer.classList.remove('rulers');
             canvas.classList.remove('on');
-            guides.forEach(function (g) { drop(g, 500); });
-            guides = [];
             if (quiet) return;
             hud.flash('<span class="ok">✓</span> HERO SHIPPED IN ' + secs() + 'S', 2300);
             setTimeout(function () { if (!dead && phase === 1 && !running.length) hud.flash('SCROLL <s>/</s> THE SWARM FOLLOWS ↓', 2600); }, 2300);
@@ -1145,25 +1098,24 @@
             });
         }
 
+        // The site's own preloader ("Building, Shipping, Innovating.") plays first
+        // and index.js lifts its curtain as usual. The agents arrive as it rises.
+        const preloader = document.getElementById('preloader');
+        function lifted() {
+            return !preloader || preloader.classList.contains('done') || getComputedStyle(preloader).display === 'none';
+        }
+
         async function intro() {
-            const c = sys;
+            const c = sys, t0 = performance.now(), waited = !lifted();
             canvas.classList.add('on');
-            const term = el('div', 'sw-term', layer,
-                '<div><span class="p">$</span> <span class="cmd"></span><i class="cur"></i></div><div class="out">&nbsp;</div>');
-            const cmdEl = term.querySelector('.cmd'), out = term.querySelector('.out');
-            const cmd = SMALL ? 'swarm build --agents ' + COUNT : 'swarm build ./gs-tejas --agents ' + COUNT;
-            await c.wait(180);
-            for (let i = 1; i <= cmd.length; i++) { cmdEl.textContent = cmd.slice(0, i); await c.wait(rnd(8, 24)); }
-            await c.wait(150);
-            term.classList.add('ran');
-            out.innerHTML = '<span class="ok">✓</span> ' + total + ' layers mapped <span class="dim">·</span> ' + COUNT + ' agents online';
-            await c.wait(130);
+            while (!lifted()) {
+                // index.js lifts it after load; never let a stuck preloader hold the page
+                if (performance.now() - t0 > 6000) preloader.classList.add('done');
+                await c.wait(40);
+            }
+            await c.wait(waited ? 380 : 150);
             spawn();
             await c.wait(SMALL ? 420 : 320);
-            if (rulers) layer.classList.add('rulers');
-            await c.wait(SMALL ? 220 : 340);
-            term.classList.add('gone');
-            setTimeout(function () { term.remove(); }, 500);
             phase = 1;
             hud.show();
             hud.section('HERO');
@@ -1175,8 +1127,6 @@
             ctxs.slice().forEach(function (c) { c.kill(); });
             running.slice().forEach(placeNow);
             pending.slice().forEach(placeNow);
-            guides.forEach(zap);
-            guides = [];
             root.classList.remove('sw-intro');
             phase = 2;
         }
@@ -1215,7 +1165,7 @@
         /* ============ LISTENERS ============ */
         function onMove(e) { mx = e.clientX; my = e.clientY; hasMouse = true; }
         function onKey(e) { if (e.key === 'Escape' && phase < 2) skip(); }
-        function onResize() { vw = window.innerWidth; vh = window.innerHeight; remeasure(); if (rulers) rulers.render(); }
+        function onResize() { vw = window.innerWidth; vh = window.innerHeight; remeasure(); }
         // a late web font shifts the glyphs: re-map whatever is being typed
         function remeasure() {
             running.forEach(function (t) {
@@ -1240,9 +1190,9 @@
             tasks.forEach(function (t) {
                 t.r = t.el.getBoundingClientRect();
                 // not rendered at this screen size (desktop nav on a phone, and so on)
-                if (!t.virtual && t.r.width === 0 && t.r.height === 0) { t.state = 3; t.ready = true; return; }
+                if (t.r.width === 0 && t.r.height === 0) { t.state = 3; t.ready = true; return; }
                 pending.push(t);
-                if (!t.virtual) total++;
+                total++;
                 t.hide.forEach(function (e) { e.classList.add('sw-hide'); });
             });
 
@@ -1256,7 +1206,6 @@
             root.classList.remove('sw-boot');
             root.classList.add('sw-intro');
 
-            if (!SMALL) rulers = makeRulers();
             for (let i = 0; i < COUNT; i++) agents.push(new Agent(i));
             sys = new Ctx(null, null);
 
